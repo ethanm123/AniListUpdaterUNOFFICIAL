@@ -14,7 +14,7 @@ button.addEventListener("click", () => {
         if (urlParams.has('access_token')) {
             browser.storage.local.set({ authCode: urlParams.get('access_token') })
             .then(() => { console.log("auth code set" )})
-            .catch(err => { console.log(`error setting auth code in storage: ${err}`)});
+            .catch(err => { console.log(`error setting auth code in storage: ${err}`) });
         } else {
             console.log('error getting auth code');
         }
