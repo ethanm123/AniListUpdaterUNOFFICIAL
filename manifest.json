@@ -13,7 +13,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://*.9anime.gs/", "*://*.9anime.pl/", "*://*.9anime.to/","*://*.9anime.id/"],
+        "matches": ["*://*.9anime.gs/watch/*/*", "*://*.9anime.pl/watch/*/*", "*://*.9anime.to/watch/*/*","*://*.9anime.id/watch/*/*"],
         "js": ["9animeUpdate.js"]
       },
       {
@@ -23,13 +23,18 @@
     ],
     "permissions": [
         "storage",
-        "identity"
+        "identity",
+        "webRequest"
     ],
     "browser_specific_settings": {
         "gecko": {
           "id": "{c83eeccd-a9f1-4aec-a0dc-cfe21a43bd83}",
           "strict_min_version": "42.0"
         }
+      },
+      "background": {
+        "scripts": ["apiCalls.js"],
+        "persistent": true
       } 
   }
   

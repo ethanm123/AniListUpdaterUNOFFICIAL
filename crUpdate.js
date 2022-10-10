@@ -1,1 +1,1 @@
-import { getAnimeID, updateAnimeCount } from "./apiCalls";
+const animeCount = require("./apiCalls.js");
