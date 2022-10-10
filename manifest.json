@@ -1,12 +1,12 @@
 {
     "manifest_version": 2,
-    "name": "9Anime AniList Updater UNOFFICIAL",
+    "name": "AniList AutoUpdater UNOFFICIAL",
     "version": "1.0",
   
-    "description": "Updates Anilist with what you're watching on 9anime.",
+    "description": "Updates Anilist with what you're watching on various anime sites.",
   
     "browser_action": {
-      "default_icon": { "48": "icons/pfp.jpeg" },
+      "default_icon": { "96": "icons/pfp.jpeg" },
       "browser_style": true,
       "default_title": "Anilist Updater",
       "default_popup": "popup.html"
@@ -14,7 +14,11 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["updateList.js"]
+        "js": ["9animeUpdate.js"]
+      },
+      {
+        "matches": ["<all_urls>"],
+        "js": ["crUpdate.js"]
       }
     ],
     "permissions": [

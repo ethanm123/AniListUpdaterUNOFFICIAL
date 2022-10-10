@@ -1,0 +1,1 @@
+import { getAnimeID, updateAnimeCount } from "./apiCalls";
