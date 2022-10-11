@@ -1,25 +1,20 @@
 let button = document.getElementById("loginButton");
-// console.log(browser.identity.getRedirectURL());
-button.addEventListener("click", () => {
-    if (browser.storage.local.get('authCode')) {
-        console.log("already got token");
-        return;
-    }
-    browser.identity.launchWebAuthFlow({
-        url: 'https://anilist.co/api/v2/oauth/authorize?client_id=9749&response_type=token',
-        interactive: true
-    })
-    .then(urlReturned => {
-        const urlParams = URLSearchParams(urlReturned);
-        if (urlParams.has('access_token')) {
-            browser.storage.local.set({ authCode: urlParams.get('access_token') })
-            .then(() => { console.log("auth code set" )})
-            .catch(err => { console.log(`error setting auth code in storage: ${err}`) });
-        } else {
-            console.log('error getting auth code');
+button.addEventListener("click", async () => {
+    try {
+        let { access_token } = await browser.storage.local.get('access_token');
+        if (access_token) {
+            console.log(`already got token: ${access_token}`);
+            return;
         }
-    })
-    .catch(err => {
-        console.log("error in login call");
-    });
+        console.log("here");
+        const urlReturned = await browser.identity.launchWebAuthFlow({
+            url: 'https://anilist.co/api/v2/oauth/authorize?client_id=9749&response_type=token',
+            interactive: true
+        });
+        let hash = new URL(urlReturned).hash;
+        hash = hash.slice(14, hash.length - 38);
+        await browser.storage.local.set({ access_token: hash });
+    } catch (error) {
+        console.log(`Error: ${error}`);
+    }
 });

@@ -1,1 +1,0 @@
-const animeCount = require("./apiCalls.js");
