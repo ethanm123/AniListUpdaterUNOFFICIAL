@@ -16,9 +16,27 @@ async function update(message) {
         },
     });
     const unpackedIdAndEps = getIdAndEps["data"]["Media"];
-    // const applyUpdate = await request({ 
-    //     headers: { "Authorization": "Bearer " + await browser.storage.local.get("authCode") },
-    // })
+    let access_token = await browser.storage.local.get("access_token");
+    access_token = access_token["access_token"]
+    const applyUpdate = await request({ 
+        headers: { "Authorization": "Bearer " +  access_token},
+        body: {
+            query: `
+            mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int) {
+                SaveMediaListEntry (mediaId: $mediaId, status: $status, progress: $progress) {
+                    id
+                    status
+                    progress
+                }
+            }`,
+            variables: {
+                mediaId: unpackedIdAndEps["id"],
+                status: ((unpackedIdAndEps["episodes"] != null && unpackedIdAndEps["episodes"] == message["episode"]) ? "COMPLETED" : "CURRENT"),
+                progress: message["episode"]
+            }
+        }
+    });
+    console.log(applyUpdate);
 }
 
 async function request({ url = "https://graphql.anilist.co", method = "POST", headers = {}, body }) {
