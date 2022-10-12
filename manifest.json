@@ -15,10 +15,6 @@
       {
         "matches": ["*://*.9anime.gs/watch/*/*", "*://*.9anime.pl/watch/*/*", "*://*.9anime.to/watch/*/*","*://*.9anime.id/watch/*/*"],
         "js": ["9animeUpdate.js"]
-      },
-      {
-        "matches": ["*://*.crunchyroll.com/"],
-        "js": ["crUpdate.js"]
       }
     ],
     "permissions": [
