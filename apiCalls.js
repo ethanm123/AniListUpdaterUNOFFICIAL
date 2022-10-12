@@ -1,5 +1,12 @@
 browser.runtime.onMessage.addListener(update);
 async function update(message) {
+    try {
+        let access_token = await browser.storage.local.get("access_token");
+        access_token = access_token["access_token"];
+    } catch(error) {
+        console.log(`Not logged in, error: ${error}`);
+        return;
+    }
     const getIdAndEps = await request({
         body: {
             query: `
@@ -16,8 +23,6 @@ async function update(message) {
         },
     });
     const unpackedIdAndEps = getIdAndEps["data"]["Media"];
-    let access_token = await browser.storage.local.get("access_token");
-    access_token = access_token["access_token"]
     const applyUpdate = await request({ 
         headers: { "Authorization": "Bearer " +  access_token},
         body: {
