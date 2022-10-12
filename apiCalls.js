@@ -41,7 +41,6 @@ async function update(message) {
             }
         }
     });
-    console.log(applyUpdate);
 }
 
 async function request({ url = "https://graphql.anilist.co", method = "POST", headers = {}, body }) {
