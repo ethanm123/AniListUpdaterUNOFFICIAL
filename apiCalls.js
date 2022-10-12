@@ -1,9 +1,10 @@
 browser.runtime.onMessage.addListener(update);
 async function update(message) {
+    let accessToken;
     try {
-        let access_token = await browser.storage.local.get("access_token");
-        access_token = access_token["access_token"];
-    } catch(error) {
+        const accessTokenObj = await browser.storage.local.get("access_token");
+        accessToken = accessTokenObj["access_token"];
+    } catch(error) { 
         console.log(`Not logged in, error: ${error}`);
         return;
     }
@@ -24,7 +25,7 @@ async function update(message) {
     });
     const unpackedIdAndEps = getIdAndEps["data"]["Media"];
     const applyUpdate = await request({ 
-        headers: { "Authorization": "Bearer " +  access_token},
+        headers: { "Authorization": "Bearer " +  accessToken},
         body: {
             query: `
             mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int) {
@@ -41,6 +42,7 @@ async function update(message) {
             }
         }
     });
+    console.log(applyUpdate);
 }
 
 async function request({ url = "https://graphql.anilist.co", method = "POST", headers = {}, body }) {
