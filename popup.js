@@ -5,7 +5,6 @@ button.addEventListener("click", async () => {
             console.log(`already got token`);
             return;
         }
-        console.log("here");
         const urlReturned = await browser.identity.launchWebAuthFlow({
             url: 'https://anilist.co/api/v2/oauth/authorize?client_id=9749&response_type=token',
             interactive: true
