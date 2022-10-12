@@ -4,8 +4,6 @@ function matchTitle(title) {
 }
 
 function getEpisode(url) {
-    console.log(url);
-    console.log(url.substring(url.lastIndexOf("/") + 4, url.length));
     return url.substring(url.lastIndexOf("/") + 4, url.length);
 }
 
