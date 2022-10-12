@@ -12,7 +12,6 @@ button.addEventListener("click", async () => {
         let hash = new URL(urlReturned).hash;
         hash = hash.slice(14, hash.length - 38);
         await browser.storage.local.set({ access_token: hash });
-        console.log(await browser.storage.local.get("access_token"));
     } catch (error) {
         console.log(`Error: ${error}`);
     }
